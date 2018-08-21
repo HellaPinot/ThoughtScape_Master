@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/focused_item_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#dfa0e3"
+    android:padding="8dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/focused_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/focused_progress"
+                app:layout_constraintEnd_toStartOf="@+id/focused_progress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Focused title" />
+
+            <TextView
+                android:id="@+id/focused_next_task"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="@+id/focused_progress"
+                app:layout_constraintStart_toStartOf="@+id/focused_title"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                tools:text="Next task body" />
+
+            <ProgressBar
+                android:id="@+id/focused_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="63dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:progressDrawable="@drawable/circle_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="137dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Next Task"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/focused_title"
+                app:layout_constraintTop_toBottomOf="@+id/focused_title" />
+
+            <TextView
+                android:id="@+id/from_date"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/focused_task_progress"
+                app:layout_constraintTop_toBottomOf="@+id/focused_task_progress"
+                tools:text="From Date" />
+
+            <ProgressBar
+                android:id="@+id/focused_task_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/focused_next_task"
+                app:layout_constraintStart_toStartOf="@+id/focused_next_task"
+                app:layout_constraintTop_toBottomOf="@+id/focused_next_task" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/to_date"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/from_date"
+                app:layout_constraintTop_toBottomOf="@+id/focused_task_progress"
+                app:srcCompat="?android:attr/actionModeCloseDrawable" />
+
+            <TextView
+                android:id="@+id/to_date"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/focused_task_progress"
+                app:layout_constraintTop_toBottomOf="@+id/focused_task_progress"
+                tools:text="To Date" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

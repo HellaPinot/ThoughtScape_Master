@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title=""
+        android:id="@+id/details_pane"
+        android:icon="@drawable/ic_project_setup"
+        android:checkable="true"
+        />
+
+    <item android:title=""
+        android:id="@+id/task_list"
+        android:icon="@drawable/ic_task_list"
+        android:checkable="true"
+        />
+
+
+</menu>
