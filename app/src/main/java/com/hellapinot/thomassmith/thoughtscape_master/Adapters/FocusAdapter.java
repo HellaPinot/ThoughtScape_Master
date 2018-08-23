@@ -67,8 +67,6 @@ public class FocusAdapter extends RecyclerView.Adapter<FocusAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-
         TextView focusedTitle;
         TextView focusedBody;
         TextView fromDate;

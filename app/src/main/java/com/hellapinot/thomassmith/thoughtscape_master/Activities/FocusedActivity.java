@@ -28,8 +28,8 @@ public class FocusedActivity extends BaseActivity{
         fab = findViewById(R.id.fab);
         fab.hide();
 
-
         mFocusedIdeas = createFocusedList();
+
 
         mSectionsPagerAdapter = new SectionsPagerAdapter( getSupportFragmentManager(), CurrentStatus.FOCUSED);
         mViewPager = findViewById(R.id.daily_container);
@@ -38,6 +38,7 @@ public class FocusedActivity extends BaseActivity{
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        appStillOpen = false;
 
     }
 

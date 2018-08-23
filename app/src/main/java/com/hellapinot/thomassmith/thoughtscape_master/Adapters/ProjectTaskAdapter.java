@@ -70,17 +70,14 @@ public class ProjectTaskAdapter extends RecyclerView.Adapter<ProjectTaskAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView taskTitle;
         TextView taskBody;
         TextView taskEndDate;
         ProgressBar taskProgress;
         CheckBox taskComplete;
 
-
         public ViewHolder(View itemView) {
             super(itemView);
-
             taskTitle = itemView.findViewById(R.id.task_title);
             taskBody = itemView.findViewById(R.id.task_body);
             taskEndDate = itemView.findViewById(R.id.task_end_date);

@@ -32,17 +32,11 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
     private static CurrentStatus mCurrentStatus;
     private int sectionNumber;
 
-
-
     private ProjectTaskAdapter mProjectTaskAdapter;
     private EditText projectTitle;
     private EditText projectBody;
     private EditText projectStartDate;
     private EditText projectEndDate;
-
-
-
-
 
 
     public static FragmentManager newInstance(int sectionNumber, CurrentStatus currentStatus) {
@@ -143,16 +137,13 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
 
     }
 
-
     public DailyListAdapter getAdapter() {
         return adapter;
     }
 
-
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
-
 
     @Override
     public void onItemClick(View view, int position) {
@@ -169,7 +160,6 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
             case PROJECTSETUP:
                 mProjectTaskAdapter.taskInput(position);
                 break;
-
         }
     }
 
@@ -203,9 +193,6 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
     public static void setmCurrentStatus(CurrentStatus mCurrentStatus) {
         FragmentManager.mCurrentStatus = mCurrentStatus;
     }
-
-
-
 
     public void onLeavePSA() {
         if(mCurrentStatus == CurrentStatus.PROJECTSETUP && sectionNumber == 0){

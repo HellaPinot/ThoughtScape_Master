@@ -1,4 +1,7 @@
 package com.hellapinot.thomassmith.thoughtscape_master.Activities;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.hellapinot.thomassmith.thoughtscape_master.Adapters.SectionsPagerAdapter;
 import com.hellapinot.thomassmith.thoughtscape_master.CurrentStatus;
 import com.hellapinot.thomassmith.thoughtscape_master.DataBaseHelper;
@@ -15,16 +20,19 @@ import com.hellapinot.thomassmith.thoughtscape_master.FragmentManager;
 import com.hellapinot.thomassmith.thoughtscape_master.DateUtil;
 import com.hellapinot.thomassmith.thoughtscape_master.R;
 
-public class MainActivity extends BaseActivity {
+public class DailyDiaryActivity extends BaseActivity {
 
 
 
-    private static final String TAG = "MainActivity";
-    DataBaseHelper mDataBaseHelper;
+    private static final String TAG = "DailyDiaryActivity";
+    private Context context;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = this;
+        Log.d(TAG, "onCreate: called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -40,13 +48,11 @@ public class MainActivity extends BaseActivity {
             Log.d(TAG, "onCreate: page set to: " + getRestorePage());
         }
 
-
-        if(!dataLoaded){
-            mDataBaseHelper = new DataBaseHelper(this);
-            LoadData(mDataBaseHelper);
-        } else if(mIdeas.isEmpty()) {
+        if(mIdeas.isEmpty()) {
             createDiary(0);
+            loadDiaryData();
         }
+
 
 
         BottomNavigationView navigation = findViewById(R.id.navigation_view);
@@ -61,11 +67,13 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
 
                 FragmentManager fragmentManager = (FragmentManager) getVisibleFragment();
-                addEntry(((FragmentManager) getVisibleFragment()).getAdapter().getSectionNumber());
+                addEntry(context, ((FragmentManager) getVisibleFragment()).getAdapter().getSectionNumber());
                 fragmentManager.getAdapter().notifyDataSetChanged();
                 fragmentManager.getRecyclerView().smoothScrollToPosition(getmIdeas(((FragmentManager) getVisibleFragment()).getAdapter().getSectionNumber()).size());
+
             }
         });
+        appStillOpen = false;
     }
 
 
@@ -74,7 +82,6 @@ public class MainActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -85,15 +92,9 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
-
     public void createDiary(int num){
         for(int x = num; x < DateUtil.DaysSinceEpoch(); x++){
-
             addSection(x);
-
         }
     }
 
@@ -103,4 +104,6 @@ public class MainActivity extends BaseActivity {
         setRestorePage(fragmentManager.getSectionNumber());
         super.onStop();
     }
+
+
 }

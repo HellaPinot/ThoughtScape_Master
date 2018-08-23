@@ -1,5 +1,6 @@
 package com.hellapinot.thomassmith.thoughtscape_master.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
@@ -28,7 +29,8 @@ public class BaseActivity extends AppCompatActivity {
     protected SectionsPagerAdapter mSectionsPagerAdapter;
     protected ViewPager mViewPager;
     protected static int restorePage = -1;
-    protected static boolean dataLoaded = false;
+    protected static boolean appStillOpen = true;
+
 
     protected BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -41,29 +43,30 @@ public class BaseActivity extends AppCompatActivity {
                     
                 case R.id.idea_diary:
                     Log.d(TAG, "onNavigationItemSelected: idea clicked");
-                    getActivity(MainActivity.class);
+                    getActivity(DailyDiaryActivity.class);
                     return true;
             }
             return false;
         }
     };
 
-    protected void LoadData(DataBaseHelper db){
-        for( int x = 0; x < DateUtil.DaysSinceEpoch(); x++) {
-            addSection(x);
-            Cursor data = db.getDataDiary(x);
+    protected void loadDiaryData(){
+        Cursor data;
+        for(int day = 0; day <= DateUtil.DaysSinceEpoch(); day++){
+            data = DataBaseHelper.getInstance(this).getDiaryData(day);
             while(data.moveToNext()){
-                mIdeas.get(x).add(new IdeaStruct(data.getString(3), data.getString(4), data.getString(5), data.getString(6), data.getString(7)));
+                loadEntry(this,day-1, data.getInt(0), data.getString(2), data.getString(3), data.getString(4), data.getString(5), data.getString(6));
             }
         }
-        dataLoaded = true;
     }
+
 
     public void getActivity(Class<?> context){
         Intent intent = new Intent(this, context);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivityForResult(intent, 0);
         overridePendingTransition(0,0);
+        appStillOpen = true;
         this.finish();
     }
 
@@ -76,9 +79,14 @@ public class BaseActivity extends AppCompatActivity {
         return null;
     }
 
-    public static void addEntry(int position){
-        mIdeas.get(position).add(new IdeaStruct("",""));
+    public static void addEntry(Context context, int position){
+        mIdeas.get(position).add(new IdeaStruct(context, position, "",""));
     }
+
+    public static void loadEntry(Context context, int position, int dbID, String title, String body, String startDate, String endDate, String focused){
+        mIdeas.get(position).add(new IdeaStruct(context, dbID, title, body, startDate, endDate, focused));
+    }
+
 
     public static void updateEntry(int sectionNumber, int position, String titleUpdate, String bodyUpdate){
         mIdeas.get(sectionNumber).get(position).setTitle(titleUpdate);
@@ -109,6 +117,5 @@ public class BaseActivity extends AppCompatActivity {
     public static void setRestorePage(int restorePages) {
         restorePage = restorePages;
     }
-
 
 }

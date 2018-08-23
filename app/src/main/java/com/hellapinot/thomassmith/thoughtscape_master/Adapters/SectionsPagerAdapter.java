@@ -19,7 +19,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         this.mCurrentStatus = mCurrentStatus;
         numDaysSinceEpoch = DateUtil.DaysSinceEpoch();
         Log.d(TAG, "SectionsPagerAdapter: called" + mCurrentStatus);
-
     }
 
     @Override
@@ -34,9 +33,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return FragmentManager.newInstance(position + 1, mCurrentStatus);
             default:
                 return null;
-
         }
-
     }
 
     @Override
