@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.hellapinot.thomassmith.thoughtscape_master.Activities.BaseActivity;
+import com.hellapinot.thomassmith.thoughtscape_master.activities.BaseActivity;
 import com.hellapinot.thomassmith.thoughtscape_master.DataStructs.IdeaStruct;
 import com.hellapinot.thomassmith.thoughtscape_master.R;
 
@@ -32,6 +32,7 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
     private EditText entryTitle;
     private EditText entryBody;
     private Button updateIdea;
+    private Button deleteIdea;
 
 
     public DailyListAdapter( Context context, int sectionNumber, View view) {
@@ -47,8 +48,7 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: called");
         View view = LayoutInflater.from(mContext).inflate(R.layout.entry_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
 
@@ -109,6 +109,7 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
         entryTitle = entryInput.findViewById(R.id.entry_title);
         entryBody = entryInput.findViewById(R.id.entry_body);
         updateIdea = entryInput.findViewById(R.id.update_idea);
+        deleteIdea = entryInput.findViewById(R.id.delete_idea);
         entryInput.show();
 
         if(BaseActivity.getEntry(sectionNumber, position).getTitle() != ""){
@@ -120,6 +121,15 @@ public class DailyListAdapter extends RecyclerView.Adapter<DailyListAdapter.View
             @Override
             public void onClick(View v) {
                 BaseActivity.updateEntry(sectionNumber, position, entryTitle.getText().toString(), entryBody.getText().toString());
+                notifyDataSetChanged();
+                entryInput.dismiss();
+            }
+        });
+
+        deleteIdea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseActivity.deleteEntry(sectionNumber, position, mContext);
                 notifyDataSetChanged();
                 entryInput.dismiss();
             }

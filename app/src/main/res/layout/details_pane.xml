@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/project_body_main" />
 
-    <EditText
+    <Button
         android:id="@+id/project_start_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <EditText
+    <Button
         android:id="@+id/project_end_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

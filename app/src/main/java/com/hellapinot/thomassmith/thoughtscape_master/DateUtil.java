@@ -15,12 +15,13 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class DateUtil {
 
     private static final Date EPOCH = new GregorianCalendar(2018, 06,19).getTime();
     private static String strDateFormat = "dd-MMM-yyyy";
-    private static SimpleDateFormat dFormat = new SimpleDateFormat(strDateFormat);
+    private static SimpleDateFormat dFormat = new SimpleDateFormat(strDateFormat, Locale.ENGLISH);
     private static final String TAG = "DateUtil";
 
 
@@ -54,14 +55,12 @@ public class DateUtil {
 
     public static int daysFromToday(String aDate){
         Date toDate = null;
-
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         try {
             toDate = formatter1.parse(aDate);
         } catch(ParseException e){
             Log.d(TAG, "daysFromToday: invalid date parsed");
         }
-
         Calendar sDate = toCalendar(new Date().getTime());
         Calendar eDate = toCalendar(toDate.getTime());
 
@@ -71,23 +70,21 @@ public class DateUtil {
 
         // Calculate difference in milliseconds
         long diff = Math.abs(milis2 - milis1);
-
         return (int)(diff / (24 * 60 * 60 * 1000));
     }
+
+    
 
     public static int daysBetween(String fDate, String tDate){
         Date toDate = null;
         Date fromDate = null;
-
-        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         try {
             toDate = formatter1.parse(tDate);
             fromDate = formatter1.parse(fDate);
-
         } catch(ParseException e){
             Log.d(TAG, "daysFromToday: invalid date parsed");
         }
-
         Calendar sDate = toCalendar(fromDate.getTime());
         Calendar eDate = toCalendar(toDate.getTime());
 
@@ -97,7 +94,6 @@ public class DateUtil {
 
         // Calculate difference in milliseconds
         long diff = Math.abs(milis2 - milis1);
-
         return (int)(diff / (24 * 60 * 60 * 1000));
     }
 

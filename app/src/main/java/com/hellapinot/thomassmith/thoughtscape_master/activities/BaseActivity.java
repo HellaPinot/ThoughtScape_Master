@@ -1,4 +1,4 @@
-package com.hellapinot.thomassmith.thoughtscape_master.Activities;
+package com.hellapinot.thomassmith.thoughtscape_master.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * BaseActivity handles the core diary data, the switching of intents between Diary
+ * and Focused activities and loads data from SQLite class DataBaseHelper into HashMap
+ */
+
 public class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "BaseActivity";
@@ -29,9 +34,9 @@ public class BaseActivity extends AppCompatActivity {
     protected SectionsPagerAdapter mSectionsPagerAdapter;
     protected ViewPager mViewPager;
     protected static int restorePage = -1;
-    protected static boolean appStillOpen = true;
 
 
+    //Switches between Diary and Focused activity using Nav Bar
     protected BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,6 +55,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     };
 
+    // Takes data from SQLite and adds into mIdeas
     protected void loadDiaryData(){
         Cursor data;
         for(int day = 0; day <= DateUtil.DaysSinceEpoch(); day++){
@@ -60,16 +66,21 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-
+    //Switches intent from and to any class pairs
     public void getActivity(Class<?> context){
         Intent intent = new Intent(this, context);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivityForResult(intent, 0);
         overridePendingTransition(0,0);
-        appStillOpen = true;
         this.finish();
     }
 
+
+    //Returns fragment visible on screen
+    /*
+    BUG NOTE: When swiping between days in Diary, takes half a second to register page switch.
+    Can result in adding entry to previous Diary date.
+     */
     public Fragment getVisibleFragment(){
         for(Fragment i: getSupportFragmentManager().getFragments()){
             if(i.getUserVisibleHint()){
@@ -91,6 +102,11 @@ public class BaseActivity extends AppCompatActivity {
     public static void updateEntry(int sectionNumber, int position, String titleUpdate, String bodyUpdate){
         mIdeas.get(sectionNumber).get(position).setTitle(titleUpdate);
         mIdeas.get(sectionNumber).get(position).setBody(bodyUpdate);
+    }
+
+    public static void deleteEntry(int sectionNumber, int position, Context context){
+        DataBaseHelper.getInstance(context).deleteDiaryEntry(mIdeas.get(sectionNumber).get(position).getDbID());
+        mIdeas.get(sectionNumber).remove(position);
     }
 
 

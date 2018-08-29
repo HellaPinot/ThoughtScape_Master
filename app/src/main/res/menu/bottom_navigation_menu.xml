@@ -2,15 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title=""
+        android:id="@+id/idea_diary"
+        android:icon="@drawable/ic_daily_idea"
+        android:checkable="true"
+        />
+
+    <item android:title=""
         android:id="@+id/focus_idea"
         android:icon="@drawable/ic_focus_idea"
         android:checkable="true"
         />
 
-    <item android:title=""
-        android:id="@+id/idea_diary"
-        android:icon="@drawable/ic_daily_idea"
-        android:checkable="true"
-        />
+
 
 </menu>

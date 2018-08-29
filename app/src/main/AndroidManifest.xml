@@ -10,7 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.DailyDiaryActivity"
+            android:name=".activities.BaseActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".activities.DailyDiaryActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.FocusedActivity"
+            android:name=".activities.FocusedActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.ProjectSetupActivity"
+            android:name=".activities.ProjectSetupActivity"
             android:label="ThoughtScape_Master"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

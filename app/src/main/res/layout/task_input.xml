@@ -50,7 +50,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/task_end_date" />
 
-            <EditText
+            <Button
                 android:id="@+id/task_end_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/task_title" />
 
-            <EditText
+            <Button
                 android:id="@+id/task_start_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

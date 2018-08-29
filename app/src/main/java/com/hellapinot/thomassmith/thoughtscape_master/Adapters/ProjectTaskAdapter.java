@@ -15,10 +15,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.hellapinot.thomassmith.thoughtscape_master.Activities.BaseActivity;
+import com.hellapinot.thomassmith.thoughtscape_master.activities.BaseActivity;
 import com.hellapinot.thomassmith.thoughtscape_master.DateUtil;
 import com.hellapinot.thomassmith.thoughtscape_master.R;
 import com.hellapinot.thomassmith.thoughtscape_master.DataStructs.TaskStruct;
+import com.hellapinot.thomassmith.thoughtscape_master.activities.ProjectSetupActivity;
 
 import java.util.ArrayList;
 
@@ -29,11 +30,11 @@ public class ProjectTaskAdapter extends RecyclerView.Adapter<ProjectTaskAdapter.
     private static final String TAG = "ProjectTaskAdapter";
     private Dialog entryInput;
     private EditText taskTitle;
-    private EditText taskStartDate;
-    private EditText taskEndDate;
+    private Button taskStartDate;
+    private Button taskEndDate;
     private EditText taskBody;
     private Button updateTask;
-    private final ArrayList<TaskStruct> aList = BaseActivity.getFocusedIdeas().get(this.position).getTaskList();
+    private final ArrayList<TaskStruct> aList = BaseActivity.getFocusedIdeas().get(position).getTaskList();
 
     public ProjectTaskAdapter(Context context) {
         mContext = context;
@@ -54,6 +55,7 @@ public class ProjectTaskAdapter extends RecyclerView.Adapter<ProjectTaskAdapter.
         holder.taskEndDate.setText(aList.get(position).getTaskEndDate());
         holder.taskBody.setText(aList.get(position).getTaskBody());
         holder.taskComplete.setChecked(aList.get(position).isTaskComplete());
+        Log.d(TAG, "onBindViewHolder: task checked set to :" + aList.get(position).isTaskComplete());
         holder.taskProgress.setProgress(calculateTaskProgress(position));
         holder.taskComplete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,7 +102,19 @@ public class ProjectTaskAdapter extends RecyclerView.Adapter<ProjectTaskAdapter.
         entryInput.setContentView(R.layout.task_input);
         taskTitle = entryInput.findViewById(R.id.task_title);
         taskStartDate = entryInput.findViewById(R.id.task_start_date);
+        taskStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProjectSetupActivity.getDatePicker(taskStartDate, mContext);
+            }
+        });
         taskEndDate = entryInput.findViewById(R.id.task_end_date);
+        taskEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProjectSetupActivity.getDatePicker(taskEndDate, mContext);
+            }
+        });
         taskBody = entryInput.findViewById(R.id.task_body);
         updateTask = entryInput.findViewById(R.id.update_task);
         entryInput.show();

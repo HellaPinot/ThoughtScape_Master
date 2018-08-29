@@ -10,11 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.hellapinot.thomassmith.thoughtscape_master.Activities.BaseActivity;
-import com.hellapinot.thomassmith.thoughtscape_master.Activities.ProjectSetupActivity;
+import com.hellapinot.thomassmith.thoughtscape_master.activities.BaseActivity;
+import com.hellapinot.thomassmith.thoughtscape_master.activities.ProjectSetupActivity;
 import com.hellapinot.thomassmith.thoughtscape_master.Adapters.DailyListAdapter;
 import com.hellapinot.thomassmith.thoughtscape_master.Adapters.FocusAdapter;
 import com.hellapinot.thomassmith.thoughtscape_master.Adapters.ProjectTaskAdapter;
@@ -35,8 +36,8 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
     private ProjectTaskAdapter mProjectTaskAdapter;
     private EditText projectTitle;
     private EditText projectBody;
-    private EditText projectStartDate;
-    private EditText projectEndDate;
+    private Button projectStartDate;
+    private Button projectEndDate;
 
 
     public static FragmentManager newInstance(int sectionNumber, CurrentStatus currentStatus) {
@@ -73,6 +74,19 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
                         projectBody = rootView.findViewById(R.id.project_body_main);
                         projectStartDate = rootView.findViewById(R.id.project_start_date);
                         projectEndDate = rootView.findViewById(R.id.project_end_date);
+                        projectStartDate.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ProjectSetupActivity.getDatePicker(projectStartDate, getContext());
+                            }
+                        });
+                        projectEndDate.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ProjectSetupActivity.getDatePicker(projectEndDate, getContext());
+                            }
+                        });
+
                         projectTitle.setText(BaseActivity.getFocusedIdeas().get(FocusAdapter.getPosition()).getTitle());
                         projectBody.setText(BaseActivity.getFocusedIdeas().get(FocusAdapter.getPosition()).getBody());
                         projectStartDate.setText(BaseActivity.getFocusedIdeas().get(FocusAdapter.getPosition()).getProjectStartDate());
@@ -125,6 +139,9 @@ public  class FragmentManager extends Fragment implements RecyclerItemClickListe
         recyclerView.setAdapter(mProjectTaskAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), recyclerView, this));
         FloatingActionButton taskButton = view.findViewById(R.id.btn_task);
+        if(BaseActivity.getFocusedIdeas().get(ProjectTaskAdapter.getPosition()).getTaskList().isEmpty()) {
+            BaseActivity.getFocusedIdeas().get(ProjectTaskAdapter.getPosition()).loadTaskData();
+        }
         taskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

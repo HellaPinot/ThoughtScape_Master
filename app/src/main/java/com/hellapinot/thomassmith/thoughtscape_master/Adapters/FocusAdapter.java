@@ -3,8 +3,6 @@ package com.hellapinot.thomassmith.thoughtscape_master.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.hellapinot.thomassmith.thoughtscape_master.Activities.BaseActivity;
+import com.hellapinot.thomassmith.thoughtscape_master.activities.BaseActivity;
 import com.hellapinot.thomassmith.thoughtscape_master.DateUtil;
 import com.hellapinot.thomassmith.thoughtscape_master.R;
-
-import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FocusAdapter extends RecyclerView.Adapter<FocusAdapter.ViewHolder>{
 

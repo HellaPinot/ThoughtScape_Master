@@ -1,4 +1,4 @@
-package com.hellapinot.thomassmith.thoughtscape_master.Activities;
+package com.hellapinot.thomassmith.thoughtscape_master.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class FocusedActivity extends BaseActivity{
 
     private static final String TAG = "FocusedActivity";
-    private FloatingActionButton fab;
 
 
     @Override
@@ -25,23 +24,24 @@ public class FocusedActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.hide();
 
         mFocusedIdeas = createFocusedList();
-
 
         mSectionsPagerAdapter = new SectionsPagerAdapter( getSupportFragmentManager(), CurrentStatus.FOCUSED);
         mViewPager = findViewById(R.id.daily_container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(mSectionsPagerAdapter.getCount());
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_view);
+        BottomNavigationView navigation = findViewById(R.id.navigation_view);
+        navigation.setSelectedItemId(R.id.focus_idea);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        appStillOpen = false;
+
 
     }
 
+    //Adds focused ideas from Diary into new Array
     public ArrayList<IdeaStruct> createFocusedList(){
         ArrayList<IdeaStruct> temp = new ArrayList<>();
         for( int key = 0; key < mIdeas.size(); key++){

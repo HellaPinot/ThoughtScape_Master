@@ -1,21 +1,16 @@
-package com.hellapinot.thomassmith.thoughtscape_master.Activities;
+package com.hellapinot.thomassmith.thoughtscape_master.activities;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hellapinot.thomassmith.thoughtscape_master.Adapters.SectionsPagerAdapter;
 import com.hellapinot.thomassmith.thoughtscape_master.CurrentStatus;
-import com.hellapinot.thomassmith.thoughtscape_master.DataBaseHelper;
 import com.hellapinot.thomassmith.thoughtscape_master.FragmentManager;
 import com.hellapinot.thomassmith.thoughtscape_master.DateUtil;
 import com.hellapinot.thomassmith.thoughtscape_master.R;
@@ -41,6 +36,8 @@ public class DailyDiaryActivity extends BaseActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), CurrentStatus.DAILYDIARY);
         mViewPager = findViewById(R.id.daily_container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        //Used to restore diary page that was shown before switching to focused view
         if(getRestorePage() < 0) {
             mViewPager.setCurrentItem(mSectionsPagerAdapter.getCount());
         } else{
@@ -48,18 +45,18 @@ public class DailyDiaryActivity extends BaseActivity {
             Log.d(TAG, "onCreate: page set to: " + getRestorePage());
         }
 
+        // Creates / Restores Diary on Startup
         if(mIdeas.isEmpty()) {
             createDiary(0);
             loadDiaryData();
         }
 
 
-
         BottomNavigationView navigation = findViewById(R.id.navigation_view);
-        navigation.setSelectedItemId(R.id.idea_diary);
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
+        //Adds new entry in Diary
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +70,7 @@ public class DailyDiaryActivity extends BaseActivity {
 
             }
         });
-        appStillOpen = false;
+
     }
 
 
